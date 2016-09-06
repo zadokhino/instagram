@@ -1,12 +1,16 @@
-<h1>Вся лента</h1>
-<% @user.friends.each do |friend| %>
-	<div class="row">
-		<div class="col-sm-offset-4 col-md-3">
-			<% friend.photos.each do |photo| %>
-				<%= link_to friend.name, user_path(friend.id) %>
-				<%= link_to image_tag(photo.image.url(:medium)), photo_path(photo.id) %>
-				<i><%= time_ago_in_words(photo.created_at) %></i></br>
-			<% end %>
+<% if user_signed_in? %>
+	<h1>Вся лента</h1>
+	<% @user.friends.each do |friend| %>
+		<div class="row">
+			<div class="col-sm-offset-4 col-md-3">
+				<% friend.photos.each do |photo| %>
+					<%= link_to friend.name, user_path(friend.id) %>
+					<%= link_to image_tag(photo.image.url(:medium)), photo_path(photo.id) %>
+					<i><%= time_ago_in_words(photo.created_at) %></i></br>
+				<% end %>
+			</div>
 		</div>
-	</div>
+	<% end %>
+<% else %>
+	<%= link_to 'Please log in', new_user_session_path %>
 <% end %>
