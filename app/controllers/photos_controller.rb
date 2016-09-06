@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
 	def index
-		@photos = Photo.all
+		@user = current_user
 	end
 
 	def show
@@ -41,6 +41,5 @@ class PhotosController < ApplicationController
 	def photo_params
 		params.require(:photo).permit(:description, :text, :image)
 	end
-
 
 end

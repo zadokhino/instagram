@@ -1,4 +1,12 @@
-<h1>Users</h1>
+<div class="row">
+	<div class="col-sm-offset-2 col-md-3">
+		<h1>Users</h1>
+	</div>
+</div>
 <% @users.each do |user| %>
-	<%= link_to user.name, user_path(user) %>
+	<div class="row">
+		<div class="col-sm-offset-2 col-md-3">
+			<h2><%= link_to user.name, user_path(user) %></h2>
+		</div>
+	</div>
 <% end %>

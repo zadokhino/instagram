@@ -8,4 +8,8 @@ class UsersController < ApplicationController
 		@photos = @user.photos.order('created_at DESC')
 		@photo = Photo.new
 	end
+
+	def following
+		@user = current_user
+	end
 end

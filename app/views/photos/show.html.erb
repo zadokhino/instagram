@@ -1,3 +1,6 @@
-<h1>Photo</h1>
-<%= image_tag @photo.image.url(:original) %>
-<%= @photo.description %>
+<div class="row">
+	<div class="col-sm-offset-2 col-md-3">
+		<%= image_tag @photo.image.url(:original) %></br>
+		<strong><%= @photo.description %></strong>
+	</div>
+</div>
