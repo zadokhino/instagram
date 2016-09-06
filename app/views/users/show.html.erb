@@ -1,0 +1,21 @@
+<% provide :button_text, 'Post it' %>
+<h1>
+  <%= @user.name %>
+</h1>
+<% if user_signed_in? %>
+	<% @photos.each do |photo| %>
+		<div class="row">
+			<div class="col-sm-offset-2 col-md-3">
+				<strong><%= link_to image_tag(photo.image.url(:medium)), photo_path(photo.id) %></strong> </br>
+				<%= photo.description %> </br>
+				<i><%= time_ago_in_words(photo.created_at) %></i></br>
+			<% if current_user %>
+			  	<%= link_to 'Delete', photo_path(photo), method: :delete, data: {confirm: 'Do you want to remove this photo?'} %>
+			  	<%= link_to 'Edit', edit_photo_path(photo) %>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
+<% if current_user %>
+	<%= render 'photos/form' %>
+<% end %>
