@@ -2,9 +2,29 @@
 	<div class="col-sm-offset-2 col-md-3">
 		<%= image_tag @photo.image.url(:original) %></br>
 		<strong><%= @photo.description %></strong></br>
-		<% if current_user %>
-			<%= link_to "Like", likes_path(photo_id: @photo), method: :post %>
-			(<%= @photo.likes.count %>)
+		 Likes: (<%= @photo.likes.count %>)</br>
+		<% if user_signed_in? %>
+			<% unless current_user.likes.find_by(@photo.id) %>
+				<%= link_to "Like", likes_path(photo_id: @photo), method: :post %>
+			<% end %>
+
+			<% @photo.comments.each do |comment| %>
+				<strong><%= comment.user.name %></strong></br>
+				<%= comment.text %></br>
+			<% end %>
+			<%= form_for @comment, url: comments_path, html: {class: 'form-horizontal'} do |f| %>
+			    <div class="form-group <%= 'has-error' if @comment.errors[:text].any? %>">
+			        <div class="col-sm-offset-3 col-sm-6">
+			            <%= f.text_area :text, class: 'form-control' %>
+			        </div>
+			    </div>
+			    	<%= f.hidden_field :photo_id, value: @photo.id %>
+			    <div class="form-group">
+			        <div class="col-sm-offset-3 col-sm-10">
+			            <%= f.submit "Add comment" %>
+			        </div>
+			    </div>
+			<% end %>	
 		<% end %>
 	</div>
 </div>

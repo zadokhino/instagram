@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   root 'photos#index'
   devise_for :users
-  resources  :users
+  resources  :users, only: [:show, :index]
   resources  :photos
-  resources  :friendships
-  resources  :likes
+  resources  :friendships, only: [:destroy, :create]
+  resources  :likes, only: [:create, :destroy]
+  resources  :comments, only: [:create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,8 +2,8 @@
 <h1>
   <%= @user.name %>
 </h1>
-<% unless current_user == @user %>
-	<%= link_to "Follow", friendships_path(friend_id: @user), method: :post %>
+<% if current_user.friends.find_by(@user.id) == nil && current_user != @user %>
+		<%= link_to "Follow", friendships_path(friend_id: @user), method: :post %>
 <% end %>
 
 <% if user_signed_in? %>
@@ -22,7 +22,7 @@
 	<% end %>
 <% end %>
 
-<% if current_user && current_user == @user %>
+<% if current_user == @user %>
 	<%= render 'photos/form' %>
 	<div class="row">
 		<div class="col-sm-offset-2 col-md-3">
